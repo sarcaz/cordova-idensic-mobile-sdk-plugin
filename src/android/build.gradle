@@ -1,0 +1,47 @@
+buildscript {
+    apply from: rootProject.file("dependencies.gradle")
+    repositories {
+        google()
+        mavelCentral()
+    }
+    dependencies {
+        classpath deps.build.androidPlugin
+        classpath deps.build.kotlinPlugin
+        classpath deps.build.butterknifePlugin
+    }
+}
+
+plugins {
+    id "maven"
+}
+
+apply plugin: 'com.android.library'
+
+rootProject.allprojects {
+    repositories {
+        google()
+        maven { url "https://maven.sumsub.com/repository/maven-public/" }
+    }
+}
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'org.apache.cordova:framework:8.1.0'
+}
